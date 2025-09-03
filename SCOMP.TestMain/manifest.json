@@ -1,0 +1,18 @@
+{
+    "Name": "[🖨️] Test",
+    "Author": "mushymato",
+    "Version": "1.0.0",
+    "Description": "We can rebuild them, we have the technology",
+    "UniqueID": "mushymato.SCOMP.TestMain",
+    "MinimumApiVersion": "4.0.0",
+    "ContentPackFor": {
+        "UniqueID": "Pathoschild.ContentPatcher"
+    },
+    "Dependencies": [
+        {
+            "UniqueID": "mushymato.SCOMP",
+            "IsRequired": true
+        }
+    ],
+    "mushymato.SCOMP": "T"
+}

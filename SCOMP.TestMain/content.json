@@ -1,0 +1,195 @@
+{
+  "$schema": "https://smapi.io/schemas/content-patcher.json",
+  "Format": "2.7.0",
+  "ConfigSchema": {
+    "BlondHair": {
+      "AllowValues": "true,false",
+      "Default": "false"
+    }
+  },
+  "Changes": [
+    // load the pieces
+    // base
+    {
+      "Action": "Load",
+      "Target": "Characters/{{ModId}}",
+      "FromFile": "Assets/Models/Main/Characters/DN.SnS_Val/Base.png"
+    },
+    {
+      "Action": "Load",
+      "Target": "Portraits/{{ModId}}",
+      "FromFile": "Assets/Models/Main/Portraits/DN.SnS_Val/Base.png"
+    },
+    // hair
+    {
+      "Action": "Load",
+      "Target": "Characters/{{ModId}}/Hair",
+      "FromFile": "Assets/Models/Main/Characters/DN.SnS_Val/Features/Hair_Brown.png",
+    },
+    {
+      "Action": "EditImage",
+      "Target": "Characters/{{ModId}}/Hair",
+      "FromFile": "Assets/Models/Main/Characters/DN.SnS_Val/Features/Hair_Blond.png",
+      "When": {
+        "BlondHair": true
+      }
+    },
+    {
+      "Action": "Load",
+      "Target": "Portraits/{{ModId}}/Hair",
+      "FromFile": "Assets/Models/Main/Portraits/DN.SnS_Val/Features/Hair_Brown.png",
+    },
+    {
+      "Action": "EditImage",
+      "Target": "Portraits/{{ModId}}/Hair",
+      "FromFile": "Assets/Models/Main/Portraits/DN.SnS_Val/Features/Hair_Blond.png",
+      "When": {
+        "BlondHair": true
+      }
+    },
+    // outfit
+    {
+      "Action": "Load",
+      "Target": "Characters/{{ModId}}/Season_Spring,Characters/{{ModId}}/Season_Summer,Characters/{{ModId}}/Season_Fall,Characters/{{ModId}}/Season_Winter",
+      "FromFile": "Assets/Models/Main/Characters/DN.SnS_Val/Outfits/{{TargetWithoutPath}}.png"
+    },
+    {
+      "Action": "Load",
+      "Target": "Portraits/{{ModId}}/Season_Spring,Portraits/{{ModId}}/Season_Summer,Portraits/{{ModId}}/Season_Fall,Portraits/{{ModId}}/Season_Winter",
+      "FromFile": "Assets/Models/Main/Portraits/DN.SnS_Val/Outfits/{{TargetWithoutPath}}.png"
+    },
+    // sprite comp
+    {
+      "Action": "EditData",
+      "Target": "mushymato.SCOMP/Layers/{{ModId}}",
+      "Entries": {
+        "Val/C/Spring": {
+          "Id": "Val/C/Spring",
+          "Layers": [
+            {
+              "Id": "Base",
+              "Texture": "Characters/{{ModId}}"
+            },
+            {
+              "Id": "Hair",
+              "Texture": "Characters/{{ModId}}/Hair"
+            },
+            {
+              "Id": "Outfit",
+              "Texture": "Characters/{{ModId}}/Season_Spring"
+            }
+          ]
+        },
+        "Val/P/Spring": {
+          "Id": "Val/P/Spring",
+          "Layers": [
+            {
+              "Id": "Base",
+              "Texture": "Portraits/{{ModId}}"
+            },
+            {
+              "Id": "Hair",
+              "Texture": "Portraits/{{ModId}}/Hair"
+            },
+            {
+              "Id": "Outfit",
+              "Texture": "Portraits/{{ModId}}/Season_Spring"
+            }
+          ]
+        }
+      }
+    },
+    // {
+    //   "Action": "EditImage",
+    //   "Target": "{{mushymato.SCOMP/Tx:{{ModId}}+Val/C/Spring}}",
+    //   "FromFile": "Assets/Models/Main/Characters/DN.SnS_Val/Features/Scars.png",
+    //   "PatchMode": "Overlay"
+    // },
+    // fake val stand-in
+    {
+      "Action": "EditData",
+      "Target": "Data/Characters",
+      "Entries": {
+        "{{ModId}}": {
+          "DisplayName": "FakeVal",
+          "HomeRegion": "Other",
+          "Calendar": "HiddenAlways",
+          "SocialTab": "HiddenAlways",
+          "CanSocialize": "FALSE",
+          "CanReceiveGifts": true,
+          "CanVisitIsland": "FALSE",
+          "IntroductionsQuest": false,
+          "ItemDeliveryQuests": "FALSE",
+          "PerfectionScore": false,
+          "EndSlideShow": "Hidden",
+          "Home": [
+            {
+              "Id": "Default",
+              "Condition": null,
+              "Location": "Tunnel",
+              "Tile": {
+                "X": 24,
+                "Y": 7
+              },
+              "Direction": "down"
+            }
+          ],
+          "Appearance": [
+            {
+              "Id": "Spring",
+              "Season": "Spring",
+              // "Portrait": "Portrait/{{ModId}}/Season_Spring",
+              // "Sprite": "Characters/{{ModId}}/Season_Spring",
+              "Portrait": "{{mushymato.SCOMP/Tx:{{ModId}}+Val/P/Spring}}",
+              "Sprite": "{{mushymato.SCOMP/Tx:{{ModId}}+Val/C/Spring}}",
+              "Precedence": -100,
+              "Weight": 1
+            },
+            {
+              "Id": "Summer",
+              "Season": "Summer",
+              "Portrait": "Portraits/{{ModId}}/Season_Summer",
+              "Sprite": "Characters/{{ModId}}/Season_Summer",
+              "Precedence": -100,
+              "Weight": 1
+            },
+            {
+              "Id": "Fall",
+              "Season": "Fall",
+              "Portrait": "Portraits/{{ModId}}/Season_Fall",
+              "Sprite": "Characters/{{ModId}}/Season_Fall",
+              "Precedence": -100,
+              "Weight": 1
+            },
+            {
+              "Id": "Winter",
+              "Season": "Winter",
+              "Portrait": "Portraits/{{ModId}}/Season_Winter",
+              "Sprite": "Characters/{{ModId}}/Season_Winter",
+              "Precedence": -100,
+              "Weight": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "Action": "Load",
+      "Target": "Characters/Dialogue/{{ModId}}",
+      "FromFile": "blank.json"
+    },
+    {
+      "Action": "EditData",
+      "Target": "Characters/Dialogue/{{ModId}}",
+      "Entries": {
+        "Mon": "{{i18n:debug.dialogue}}",
+        "Tue": "{{i18n:debug.dialogue}}",
+        "Wed": "{{i18n:debug.dialogue}}",
+        "Thu": "{{i18n:debug.dialogue}}",
+        "Fri": "{{i18n:debug.dialogue}}",
+        "Sat": "{{i18n:debug.dialogue}}",
+        "Sun": "{{i18n:debug.dialogue}}",
+      },
+    },
+  ]
+}

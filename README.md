@@ -1,0 +1,3 @@
+# SpriteCompositor
+
+New mod.
